@@ -139,6 +139,7 @@ int main() {
         thread.join();
     }
     //std::cout << " done loop" << std::endl;
+    slave.sendMessage(std::to_string(primes.size()));
     bool checker = true;
     for(int i = 0; i < primes.size(); i++){
         if (slave.check_prime(primes.at(i)) == false){
@@ -156,7 +157,7 @@ int main() {
    
     std::cout << primes.size() << " primes were found." << std::endl;
   
-   slave.sendMessage(std::to_string(primes.size()));
+ 
     // sizeint= std::stoi(size); 
     // threadSizeint= std::stoi(threadSize); 
     return 0;

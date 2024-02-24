@@ -196,10 +196,6 @@ int main() {
     std::cout << " done loop" << std::endl;
     int primeCount;
     primeCount = primes.size();
-    if(slaveSocket != INVALID_SOCKET){
-         int primesSlave = std::stoi(server.receiveMessage(slaveSocket));
-         primeCount += primesSlave;
-    }
      bool checker = true;
     for(int i = 0; i < primes.size(); i++){
         if (server.check_prime(primes.at(i)) == false){
@@ -213,6 +209,11 @@ int main() {
     else{
         std::cout << "List Contains non prime numbers" << std::endl;
     }
+    if(slaveSocket != INVALID_SOCKET){
+         int primesSlave = std::stoi(server.receiveMessage(slaveSocket));
+         primeCount += primesSlave;
+    }
+    
 
 
     auto end_time = std::chrono::high_resolution_clock::now();
