@@ -13,5 +13,5 @@ This project has 3 processes which are: master server, slave process, and client
 -**Performance Measurement**: Calculates and displays the time taken to calculate the count of prime numbers. <br>
 
 ## Requirement
--A C++ Compiler (e.g., G++, Clang)
+-A C++ Compiler (e.g., G++, Clang) <br>
 -C++11 Standard Library
