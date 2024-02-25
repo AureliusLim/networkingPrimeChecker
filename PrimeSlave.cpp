@@ -113,7 +113,6 @@ int main() {
     threadNum = std::get<2>(result);
   
     size = end - start + 1;
-    // std::string threadSize = slave.receiveMessage();
 
     std::cout << "size: " << size<< std::endl;
     std::cout << "threadSizeint: " << threadNum<< std::endl;
@@ -131,14 +130,14 @@ int main() {
     for (int i = 0; i < threadNum; ++i) {
         int startRange = (i==0 ? start : i * chunkSize + 1 + start);
         int endRange =  (i ==  threadNum - 1 ? end: (i + 1) * chunkSize + start);
-        //std::cout << " in loop" << std::endl;
+     
         threads.emplace_back(&Slave::findPrimes, &slave, startRange, endRange, std::ref(primes), std::ref(primesMutex));
     }
-    //std::cout << " done22 loop" << std::endl;
+   
     for (auto& thread : threads) {
         thread.join();
     }
-    //std::cout << " done loop" << std::endl;
+  
     slave.sendMessage(std::to_string(primes.size()));
     bool checker = true;
     for(int i = 0; i < primes.size(); i++){
@@ -158,8 +157,6 @@ int main() {
     std::cout << primes.size() << " primes were found." << std::endl;
   
  
-    // sizeint= std::stoi(size); 
-    // threadSizeint= std::stoi(threadSize); 
     return 0;
 }
 

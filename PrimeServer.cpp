@@ -160,7 +160,7 @@ int main() {
      
     sizeint = result.first;
     threadSizeint = result.second;
-    // std::string threadSize = server.receiveMessage();
+ 
     
     std::cout << "size: " << sizeint<< std::endl;
     std::cout << "threadSizeint: " << threadSizeint<< std::endl;
@@ -186,14 +186,14 @@ int main() {
     for (int i = 0; i < threadSizeint; ++i) {
         int startRange = (i==0 ? 2 : i * chunkSize + 1);
         int endRange = (i == threadSizeint - 1 ? limit : (i + 1) * chunkSize);
-        std::cout << " in loop" << std::endl;
+       
         threads.emplace_back(&Server::findPrimes, &server, startRange, endRange, std::ref(primes), std::ref(primesMutex));
     }
-    std::cout << " done22 loop" << std::endl;
+   
     for (auto& thread : threads) {
         thread.join();
     }
-    std::cout << " done loop" << std::endl;
+
     int primeCount;
     primeCount = primes.size();
      bool checker = true;
