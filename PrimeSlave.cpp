@@ -138,7 +138,7 @@ int main() {
         thread.join();
     }
   
-    slave.sendMessage(std::to_string(primes.size()));
+    
     bool checker = true;
     for(int i = 0; i < primes.size(); i++){
         if (slave.check_prime(primes.at(i)) == false){
@@ -148,9 +148,11 @@ int main() {
     }
     if(checker){
         std::cout << "All numbers in list of Slave are validated as prime" << std::endl;
+        slave.sendMessage(std::to_string(primes.size()) + "," + std::to_string(true));
     }
     else{
         std::cout << "List Contains non prime numbers" << std::endl;
+        slave.sendMessage(std::to_string(primes.size()) + "," + std::to_string(false));
     }
 
    

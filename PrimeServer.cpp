@@ -182,7 +182,7 @@ int main() {
     }
   
     std::vector<std::thread> threads;
-    //server.sendMessage()
+
     for (int i = 0; i < threadSizeint; ++i) {
         int startRange = (i==0 ? 2 : i * chunkSize + 1);
         int endRange = (i == threadSizeint - 1 ? limit : (i + 1) * chunkSize);
@@ -209,15 +209,30 @@ int main() {
     else{
         std::cout << "List Contains non prime numbers" << std::endl;
     }
+
     if(slaveSocket != INVALID_SOCKET){
-         int primesSlave = std::stoi(server.receiveMessage(slaveSocket));
-         primeCount += primesSlave;
+         std::string primesSlave = server.receiveMessage(slaveSocket);
+         std::cout << "Message From Slave:" << primesSlave << std::endl;
+         std::stringstream ss(primesSlave);
+         std::tuple<int, bool> response; 
+         char delimiter;
+         ss >> std::get<0>(response) >> delimiter >> std::get<1>(response);
+         primeCount += std::get<0>(response);
+         if(!std::get<1>(response)){
+            checker = false;
+         }
+         
+         
     }
     
 
 
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+    if(slaveSocket != INVALID_SOCKET && !checker){
+        std::cout << primeCount << "Search Failed. List Contains non-primes" << std::endl;
+    }
+
     std::cout << primeCount << " primes were found." << std::endl;
     std::cout << "Runtime: " << duration.count() << std::endl;
     server.sendMessage(clientSocket,std::to_string(primeCount) + "," + std::to_string(duration.count()));
