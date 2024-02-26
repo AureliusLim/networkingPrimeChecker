@@ -236,8 +236,7 @@ int main() {
     std::cout << primeCount << " primes were found." << std::endl;
     std::cout << "Runtime: " << duration.count() << std::endl;
     server.sendMessage(clientSocket,std::to_string(primeCount) + "," + std::to_string(duration.count()));
-    // sizeint= std::stoi(size); 
-    // threadSizeint= std::stoi(threadSize); 
+    
     return 0;
 }
 
